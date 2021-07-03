@@ -1,0 +1,76 @@
+.portfolioInfo{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2em;
+}
+
+.heatScore{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+
+.ticker-graph{
+    
+}
+
+
+.register, .login {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+form {
+    display:flex;
+    flex-direction: column;
+    background-color: rgb(255, 235, 119);
+    justify-items: center;
+    padding: 2%;
+    border-radius: 1%;
+    border: 2px solid #3ec2ff;
+    align-items: center;
+    width: 75%;
+    margin: 3%;
+    
+}
+
+.register-link {
+    flex-direction: column;
+    margin: 2%;
+    padding: 2%;
+    border-radius:1%;
+    border: 1px solid black;
+    align-content: center;
+    justify-content: space-around;
+    background-color: white;
+}
+
+form > input, button {
+    justify-content: space-around;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    
+    margin-top: 10px;
+    
+}
+
+
+.create-portfolio:hover {
+    cursor: pointer;
+}
+
+.news {
+    border: 1px solid rgb(6, 6, 124);
+    padding: 2%;
+}
+
+.news-item {
+    border-bottom: 1px solid rgb(6, 6, 124);
+}
+
