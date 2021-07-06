@@ -1,0 +1,338 @@
+
+@mixin flex($direction){
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    flex-direction: $direction;
+}
+
+@mixin clearDecoration(){
+    a{
+        text-decoration: none;
+        color: $secondaryColor;
+    }
+}
+
+@mixin addPointer(){
+    &:hover{
+        cursor:pointer;
+    }
+}
+
+@mixin hoverOver($color){
+    &:hover{
+        cursor:pointer;
+        color: $color;
+    }
+}
+
+@mixin menuClick($color, $bgcolor){
+    &:hover{
+        cursor:pointer;
+        color: $color;
+        background: $bgcolor;
+    }
+}
+
+@mixin addRemove($color){
+    margin-top: 3vh;
+    background-color: $color;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    margin-left:auto;
+    margin-right: auto;
+    padding: 2%;
+    width: 3vw;
+    &:hover{
+        cursor: pointer;
+    }
+    @media(max-width: 800px){
+        width:15vw;
+    }
+    div{
+        
+        align-items: center;
+        text-align: center;
+    }
+}
+
+$primaryColor : rgb(149, 221, 245);
+$secondaryColor : white;
+$deepBlue: rgb(1, 1, 47);
+
+
+#nav {
+    position: fixed;
+    top: 0;
+    
+    right: 1vh;
+    z-index: 10;
+    @include flex(row);
+    padding: 1em;
+    align-items: center;
+    height: 5vh;
+    width: 98%;
+    border-bottom: 1px solid $primaryColor;
+    background-color: $deepBlue;
+    
+    color: $primaryColor;
+    
+    
+}
+
+
+.logo {
+    
+    height: 100%;
+    width: 5%;
+
+    @media(max-width:900px){
+        width: 25%;
+    }
+}
+
+.nav-items{
+    @include flex(row);
+    width: 50%;
+    
+    
+    color: $primaryColor;
+    img{
+        height: 5%;
+        width: 7%;
+    }
+    a{
+    color: rgb(87, 200, 238);
+    text-decoration: none;
+    list-style-type: none;
+    
+    @include hoverOver($secondaryColor)
+    }
+    div{
+        @include hoverOver($secondaryColor)
+    }
+    
+    @media(max-width:750px){
+        
+        @include flex(column);
+        display:none;
+        padding: 1%;
+        text-align: center;
+        
+        position: absolute;
+        a{
+            text-decoration: none;
+            list-style-type: none;
+            
+            border-bottom: 2px solid $primaryColor;
+            @include menuClick($primaryColor, $deepBlue)
+            
+        }
+        
+        top:5vh;
+        right:0vw;
+        width: 50%;
+        background: $secondaryColor;
+        color:$primaryColor;
+        div{
+            padding: 4%;
+            border-bottom: 1px solid $primaryColor;
+            @include menuClick($primaryColor, $deepBlue)
+            
+        }
+        
+    }
+    
+}
+
+.nav-ticker{
+    @include flex(row) ;
+    height: 3vh;
+    width: 50vw;
+    justify-content: center;
+    margin-right: auto;
+    display:none;
+    @media(max-width:750px){
+        @include flex(row) ;
+        height: 75%;
+        
+        
+        input{
+            width: 50vw;
+            height: 4vh;
+            font-size: 2em;
+            font-family: 'Impact';
+        }
+        
+        
+        .searchResults{
+            position: absolute;
+            opacity: 1;
+            top: 8vh;
+            a{
+                color: $primaryColor;
+                
+            }
+            div{
+                @include menuClick($primaryColor, $deepBlue)
+            }
+            
+            background-color: $secondaryColor;
+        }
+    }
+}
+
+.menu {
+    display:none;
+    @include addPointer();
+
+    @media(max-width:750px){
+        @include flex(row);
+        
+        
+    }
+}
+
+#jumbo {
+    @include flex(row);
+    height: 90vh;
+    width: auto;
+    color: $secondaryColor;
+    align-items:center;
+    @media(max-width:800px){
+        .jumbo-info{
+            flex-direction: column;
+            align-content: center;
+            
+            width: 250vw;
+            text-align: center;
+        }
+    }
+
+    section {
+        padding: 1%;
+        text-align: center;
+        width: 50%;
+        height: 100%;
+        
+        flex-direction: column;
+        align-content: center;
+        @media(max-width:800px){
+            
+            .tickerSearch{
+                display:none;
+                width: 0%;
+
+            }
+           
+            h4{
+                width: 100%;
+                font-size: 6em;
+            }
+        }
+        input{
+            margin-top: 15%;
+            height: 10vh;
+            font-size: 3em;
+            font-family: 'Impact';
+        }
+        img{
+            width: 99%;
+        }
+    }
+    h1{
+        font-size: 4em;
+    }
+}
+
+
+.searchResults {
+    position: relative;
+    max-height: 60vh;
+
+    border: 1px solid $primaryColor;
+    a{
+        text-decoration: none;
+        color: $secondaryColor;
+    }
+    div{
+        border: 1px solid $primaryColor;
+        margin-bottom: 0.5vh; 
+        
+    }
+    
+    text-align: left;
+    overflow-y: scroll;
+}
+
+
+.ticker-item{
+    @include flex(column);
+    padding: 10%;
+    width: 15vh;
+    height: 10vh;
+    border: 1px solid $primaryColor;
+    
+   
+}
+
+
+.tInfo{
+    div{
+        @include flex(row);
+    }
+}
+
+.overall{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    
+}
+
+
+.add-stock{
+    @include addRemove(green);
+}
+
+.remove-stock{
+    @include addRemove(red);
+}
+
+
+.stock-chart{
+    @media(max-width: 800px){
+        align-content: center;
+       
+    }
+}
+
+
+.foot{
+    @include flex(row);
+    background-color: $deepBlue;
+    margin-top: 3vh;
+    @media(max-height: 800px){
+        @include flex(column);
+    }
+}
+
+.leftFoot{
+    @include flex(row); 
+    width: 75%;
+    align-items: center;
+    justify-content: space-evenly;
+    a{
+        text-decoration: none;
+        color: $secondaryColor;
+    }
+}
+
+.contact{
+    color: $secondaryColor;
+    a{
+        text-decoration: none;
+        color: $secondaryColor;
+    }
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {getPrice, getTicker5SecondStream} from '../store/outside'
-
+import $ from 'jquery';
 
 
 class TickerItem extends React.Component {
@@ -12,13 +12,26 @@ class TickerItem extends React.Component {
       
         this.propData = props.data
         this.getPrice = getPrice.bind(this)
-       
+       this.tickerRef = React.createRef()
         this.state = {
             price: 0
         }
     }
 
     async componentDidMount(){
+        let overall = (this.propData.overall * 100)
+        if(overall > 65){
+            $(this.tickerRef.current).css('background', 'red')
+        }
+        else if( overall >=50 && overall <= 65){
+            $(this.tickerRef.current).css('background', 'green')
+        }
+        else {
+            $(this.tickerRef.current).css('background', 'blue')
+        }
+       
+  
+        
         this.state.price = await this.getPrice(this.propData.ticker)
         
         this.forceUpdate()
@@ -34,17 +47,19 @@ class TickerItem extends React.Component {
         if(this.propData == undefined) {
             return (<div>Loading...</div>)
         }
-        return (<Link  to={'/stock/'+this.propData.ticker}><div className='ticker-item'>
-        <div className='tLeft'>
+        return (<Link key={this.propData.ticker} to={'/stock/'+this.propData.ticker}><div className='ticker-item' ref={this.tickerRef}>
+        <div className='tInfo'>
+            <div>
         <span>{this.propData.ticker}</span>
-        <br></br>
-        <span>{this.propData.company}</span>
-        <br></br>
         <span>{(this.state == undefined || this.state.price == undefined) ? (<div></div>) : (<div>{this.state.price}</div>)}</span>
         </div>
+        <span>{this.propData.company}</span>
+      
+        
+        </div>
        
-        <div className='tRight'>
-        <b><span className='overall'>Overall Score: </span></b>
+        <div className='overall'>
+        
         <span>{Math.floor(this.propData.overall * 100)}</span>
         </div>
         

@@ -47,7 +47,7 @@ class Portfolios extends React.Component{
     }
 
     render(){
-
+        document.title = 'Portfolio'
       
         return (<div>
            

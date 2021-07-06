@@ -1,5 +1,5 @@
 import React from 'react'
-
+import logo from '../images/HotPick.png'
 
 class Footer extends React.Component{
     constructor(props) {
@@ -12,7 +12,7 @@ class Footer extends React.Component{
         
         return (<div id= 'footer' className='foot'>
             <div className='leftFoot'>
-            <h2 style={{'color': 'red'}}>HotPicks</h2>
+            <img src={logo} weight='100vw' height='100vh' />
             <a style={{'font-size': '1.5em', 'text-decoration': 'none', 'color': 'gold'}} href='https://github.com/blackcat91' target='_blank'>GitHub</a>
             <br></br>
             <br></br>

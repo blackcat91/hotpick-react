@@ -94,7 +94,7 @@ class AddStock extends React.Component {
              (<div>Loading..</div>) : 
             
             (<div>
-                {(this.state.addable == true) ? (<div >Add</div>): (<div >Remove</div>)}
+                {(this.state.addable == true) ? ('Add'): ('Remove')}
             </div>) }
             
         </div>)

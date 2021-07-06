@@ -48,7 +48,7 @@ export const getTickerStream =  (ticker) => needle.get(IEX_SSE_SANDBOX + '/stabl
 
 export const getTicker5SecondStream =  (ticker) => needle.get(IEX_SSE_SANDBOX + '/stable/stocksUS5Second?token='+TEST_TOKEN + '&symbols='+ ticker, options)
 
-export const getNewsStream = (ticker) => needle.get(IEX_SANDBOX + '/stable/stock/' +ticker +'/news/last/'+15+'?token='+TEST_TOKEN + '&symbols='+ ticker)
+export const getNewsStream = (ticker) => needle.get(IEX_SANDBOX + '/stable/stock/' +ticker +'/news/last/'+7+'?token='+TEST_TOKEN + '&symbols='+ ticker)
 
 
 

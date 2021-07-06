@@ -2,7 +2,7 @@ import React from 'react'
 import TickerItem from '../components/ticker_item'
 import {withRouter} from 'react-router-dom'
 import { getPortfolio, getStockList } from '../store/mongoCalls'
-import './pages.css'
+import '../style/pages.css'
 
 class Portfolio extends React.Component{
 
@@ -16,7 +16,14 @@ class Portfolio extends React.Component{
     }
 
     componentDidMount(){
-        let p = getPortfolio(this.props.match.params.id)
+        var p
+        if(this.props.match.params.id){
+            p = getPortfolio(this.props.match.params.id)
+        }
+        else{
+            p = getPortfolio(this.props.id)
+        }
+        
         p.on('data', (res)=> {
             this.state.data = res
            
@@ -46,16 +53,16 @@ class Portfolio extends React.Component{
                 <div className='portfolioInfo'>
             <span>{this.state.data.portfolio_name}</span>
             <div className='heatScore'>
-            <span>Heat Score</span>
+            <span>Heat Score: </span>
             
-                {(this.state.stocks.length == 0) ? (<span>0</span>) : (<span>
+                {(this.state.stocks.length == 0) ? (<span>0</span>) : (<span style={{'color': 'rgb(247, 55, 24)'}}>
 
                 {this.state.heat}
             </span>)}
             </div>
             
             </div>
-            <div className='portfolioStocks'>
+            <div className='portfolio'>
               {this.state.stocks.length > 0 ? (<div>
                   {this.state.stocks.map((v,i) => {
                       return (<TickerItem key={v.ticker} data = {v} />)

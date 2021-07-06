@@ -1,6 +1,5 @@
 import logo from '../logo.svg';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import '../App.css';
 import NavBar from  '../components/nav.js'
 import MainJumbo from '../components/main_jumbo'
 import Footer from '../components/footer'
@@ -10,6 +9,7 @@ import { getTopTen } from '../store/mongoCalls'
 import {withRouter} from 'react-router-dom'
 import {Client} from 'iexjs'
 import {TEST_TOKEN} from '../store/outside'
+import { scrollToTop } from '../store';
 
 const iexClient =  new Client({api_token: TEST_TOKEN, version:'sandbox'})
 
@@ -26,6 +26,7 @@ class HomePage extends React.Component{
     }
 
      componentDidMount() {
+       scrollToTop()
       this.state.topTen.on('data', (res) => {
         
         this.state.data = res
@@ -62,19 +63,21 @@ class HomePage extends React.Component{
      else{
       return (
       
-        <div className="App">
-          <div className='content'>
+        <div className="home">
+
           
           <MainJumbo />
           
+
+          <h1 style={{textAlign: 'center', color: 'white', fontSize: '4em'}}>Top Ten</h1>
             
-          <div>
+          <div className='topTen'>
           {this.state.tickerItems}
           </div>
           
           
          
-          </div>
+          
           
           
         </div>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { login } from '../store/mongoCalls'
 import {Link} from 'react-router-dom'
+import { store } from '../store'
+import {logIn} from '../actions/index'
 
 
 class Login extends React.Component {
@@ -43,6 +45,7 @@ class Login extends React.Component {
             }
             else{
                 localStorage.setItem('token', response)
+                store.dispatch(logIn({token: response}))
                 this.props.history.push('/')
             }
         })

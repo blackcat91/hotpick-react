@@ -1,6 +1,9 @@
 import React from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import { createPortfolio, getUser, verify, logout } from '../store/mongoCalls'
+import Portfolio from './Portfolio'
+import {scrollToTop, store} from '../store/index'
+import {logOut} from '../actions/index'
 
 class UserPage extends React.Component {
     constructor(props) {
@@ -15,8 +18,9 @@ class UserPage extends React.Component {
     }
 
     componentDidMount() {
-        this.state.token = localStorage.getItem('token')
-        this.state.verified = verify(this.state.token)
+        scrollToTop()
+        
+        this.state.verified = verify(store.getState().isLogged.token)
         this.state.verified.on('data', (res)=> {
             
             if(res.length == undefined){
@@ -42,25 +46,39 @@ class UserPage extends React.Component {
     componentDidUpdate() {}
 
     logOut() {
-       let logOutStream =  logout(this.state.token)
-       logOutStream.on('data', (res) => {
-           if(res == 'Logout Successful'){
-               localStorage.removeItem('token')
-               this.props.history.push('/')
+       
+        localStorage.removeItem('token')
+        store.dispatch(logOut())
+        this.props.history.push('/')
+        this.forceUpdate()
 
-           }
-       })
-    }
+}
 
     render() {
 
 
         return (
-            <div  className='user-page'>
+            this.state.userData.portfolios === undefined ? (<div className='user-page user-stocks'></div>) : (<div  className='user-page'>
 
-                
+            <section className='user-info'>
+           
+                <img height='200vh' src = 'https://clipartart.com/images/default-profile-picture-clipart-3.jpg'></img>
+              
+                <article>
+                    <input type='text' value={this.state.userData.username} />
+                    <p>{this.state.userData.email}</p>
+                    <button>Change Password</button>
+                </article>
+            </section>
+            <section className='user-stocks'>
+                <Portfolio id = {this.state.userData.portfolios[0]} />
+            </section>
+            <section className='exit-buttons'>
+                <button onClick={() => this.logOut()}>Sign Out</button>
+                <button className='delete-acc'>Delete Account</button>
+            </section>
 
-            </div>
+        </div>)
         )
     }
 

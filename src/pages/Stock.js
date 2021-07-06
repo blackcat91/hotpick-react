@@ -4,9 +4,10 @@ import {withRouter} from 'react-router-dom'
 import { getNewsStream, convertUInt8, getPrice} from '../store/outside'
 import { getStock } from '../store/mongoCalls'
 import CanvasJSReact from '../canvasjs-stock-1.3/canvasjs.stock.react';
-import './pages.css'
+import '../style/pages.css'
 import { news } from '@alpacahq/alpaca-trade-api/lib/resources/polygon'
 import AddStock from '../components/addStock'
+import {store,  scrollToTop } from '../store'
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
@@ -29,6 +30,7 @@ class Stock extends React.Component{
     }
 
     async componentDidMount(){
+        scrollToTop()
         var stream = this.state.stream;
         let news = this.state.news;
         let stockStream = this.state.stockStream
@@ -96,22 +98,29 @@ class Stock extends React.Component{
     render(){
         var data = this.state.stock
        
-        return(<div>
-            <AddStock ticker = {this.ticker}/>
-            <div className='ticker-item'>
+        return(<div className='stock'>
+            {(store.getState().isLogged.token == '' || store.getState().isLogged.token== undefined )? (<div></div>) : (<AddStock ticker = {this.ticker}/>)}
+            <div className='stock-data'>
         <div className='tLeft'>
-        <span>{data.ticker}</span>
-        <br></br>
-        <span>{data.company}</span>
-        <br></br>
-        <span>{data.price}</span>
+        <div>
+        <span style={{'fontFamily': 'Impact'}}>{data.ticker}</span>
+        <span  style={{'fontFamily': 'Couurier', 'fontWeight': 'bold'}}>${data.price}</span>
         </div>
-       
+        <br></br>
+        <span style={{'fontWeight': 'bold'}}>{data.company}</span>
+        <br></br>
+        
+        </div>
+        <div className='tMid'>
+        <b><span style={{fontSize:'1em'}}>Overall Score: </span></b>
+        <br></br>
+        {Math.round(data.overall * 100)}
+        </div>
         <div className='tRight'>
             <div className='scores'>
-                <span>Momentum Score: <span>{Math.round(data.momentum * 100)}</span></span>
+                <span>mScore: <span>{Math.round(data.momentum * 100)}</span></span>
             <br></br>
-             <span>Value Score:<span> {Math.round(data.value * 100)}</span></span>
+             <span>vScore:<span> {Math.round(data.value * 100)}</span></span>
              </div>
         
         </div>
@@ -120,16 +129,13 @@ class Stock extends React.Component{
     <div className='ticker-graph'>
     <StockChart ticker ={this.props.match.params.ticker}/>
     </div>
-    <div className='oScore'>
-    <b><span style={{fontSize:'2em'}}>Overall Score: {Math.round(data.overall * 100)}</span></b>
-    </div>
-        
+   
         <div className='news'>
 
             {(this.state.recentNews.length == 0) ? (<div></div>) : (<div>
                 {this.state.recentNews.map((v,i) => {
                     
-                    return(<a href={'https://finance.yahoo.com/quote/'+ this.props.match.params.ticker}><div className='news-item'>
+                    return(<a href={'https://finance.yahoo.com/quote/'+ this.props.match.params.ticker } target='_blank'><div className='news-item'>
 
                         <h2>
                             {v.headline}

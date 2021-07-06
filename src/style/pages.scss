@@ -1,0 +1,234 @@
+
+@import './components.scss';
+
+@mixin offSet(){
+    position: relative;
+    margin-top: 10vh;
+}
+
+.home {
+    
+    @include offSet();
+}
+
+.topTen {
+    @include flex(row);
+    flex-wrap: wrap;
+    height: 60vh;
+    padding: 2%;
+}
+
+
+
+
+.stock{
+    @include offSet();
+
+}
+
+.stock-data{
+    @include flex(row);
+    justify-content: space-between ;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    color: $primaryColor;
+    font-size: 2.5em;
+
+    @media(max-width: 800px){
+        @include flex(column);
+    }
+
+}
+
+
+.tLeft{
+    width: 40%;
+    @include flex(column);
+    border: 1px solid gold;
+    justify-content: space-between;
+    align-items: stretch;
+    background: aliceblue;
+    color:rgb(42, 199, 238);
+    div{
+        display: flex;
+        flex-direction: row;
+       
+        justify-content: space-around;
+    }
+    @media(max-width: 800px){
+        width: 90%;
+    }
+}
+
+.tMid{
+    text-align: center;
+    
+        
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.tRight{
+    @include flex(column);
+    background: aliceblue;
+    color:rgb(42, 199, 238);
+    align-content: center;
+    justify-content: space-around; 
+    align-items: center;
+    width: 40%;
+    border: 1px solid gold;
+    @media(max-width: 800px){
+        width: 90%;
+    }
+}
+
+.news{
+    background: rgb(15, 15, 15);
+    padding: 1%;
+    margin-top: 3vh;
+    
+    a{
+        text-decoration:none;
+        color:rgb(42, 199, 238);
+        
+    }
+    div{
+        border-bottom: 2px solid rgb(42, 199, 238);
+    }
+    
+}
+
+.portfolioStocks{
+    @include offSet();
+    min-height: 75vh;
+   
+
+}
+@include clearDecoration();
+.search-results{
+    @include flex(row);
+    flex-wrap: wrap;
+    
+    margin: 2%;
+    @include clearDecoration();
+   
+    
+}
+
+
+.portfolioInfo{
+    @include flex(column);
+    align-items: center;
+    justify-items: center;
+    font-size: 3em;
+    font-family: 'Brush Script MT';
+}
+
+.portfolio{
+    
+    width: 100%;
+    overflow-x: hidden;
+
+    div{
+    @include flex(row); 
+    flex-wrap: wrap;
+    }
+}
+
+.user-stocks{
+    min-height: 60vh;   
+}
+
+.user-page{
+    @include offSet();
+    @include flex(column);
+    align-content: center;
+    justify-content: center;
+    padding:1%;
+    background: aliceblue;
+}
+
+.user-info{
+    @include flex(row);
+    width:100%;
+    justify-content: space-evenly;
+    align-items: center;
+    article{
+        justify-content: space-evenly;
+    }
+    @media(max-width:800px){
+        @include flex(column);
+    }
+}
+
+
+.exit-buttons{
+    @include flex(row);
+    margin: 1%;
+    margin-top: 5vh;
+    
+    justify-content: space-evenly;
+    button{
+        height: 5vh;
+        width: 10vw;
+        color: $deepBlue;
+        background-color: $primaryColor;
+        @include menuClick($primaryColor, $deepBlue);
+        @media(max-width: 800px){
+            height: 10vh;
+            width: 20vw;
+        }
+    }
+    .delete-acc{
+        color: $secondaryColor;
+        background-color: red;
+        @include menuClick($secondaryColor, red);
+    }
+}
+
+.paginate{
+    @include flex(row);
+    justify-content: space-evenly;
+
+    div{
+        background: white;
+        border-radius: 2%;
+        padding: 1%;
+        color: black;
+        @include menuClick($deepBlue, $primaryColor);
+    }
+}
+
+.login{
+    @include offSet();
+    @include flex(column);
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    justify-content: center;
+    width: 50%;
+    min-height: 70vh;
+    form, .register-link{
+        @include flex(column);
+        background: $secondaryColor;
+        padding: 1%;
+        a{
+            color: $primaryColor;
+        }
+        input{
+            margin-top: 1vh;
+            margin-bottom: 1vh;
+        }
+        button{
+            @include addPointer();
+            background: $primaryColor;
+            color: $deepBlue;
+        }
+    }
+}
+
+.register{
+    @include offSet();
+}

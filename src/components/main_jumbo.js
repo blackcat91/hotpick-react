@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { searchStocks } from '../store/mongoCalls';
-import './components.css'
+import '../style/components.css'
 import TickerSearch from './tickerSearch';
 
 class MainJumbo extends React.Component {
@@ -50,8 +50,14 @@ class MainJumbo extends React.Component {
             <div>
               
             <div id='jumbo' className={this.state.className}>
-               <p>These scores are evaluated with test data.<br></br> Please do not use as financial advice!</p>
-                <TickerSearch />
+                <section className='jumbo-info' >
+                    <h1>Hottest Stocks<br></br> On The <br></br>Market!</h1>
+                <p>These scores are evaluated with test data. Please do not use as financial advice!</p>
+                <img src='https://wallpapercave.com/wp/wp2128235.png' />
+                </section>
+               
+               <section className='jumbo-search'><TickerSearch /></section>
+                
 
             </div> 
             </div>

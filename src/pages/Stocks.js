@@ -2,9 +2,9 @@ import React from 'react'
 import TickerItem from '../components/ticker_item'
 import TickerSearch from '../components/tickerSearch'
 import {withRouter} from 'react-router-dom'
-
+import { scrollToTop } from '../store'
 import {getStocks,searchStocks} from '../store/mongoCalls'
-import './pages.css'
+import '../style/pages.css'
 
 
 
@@ -17,7 +17,10 @@ class Stocks extends React.Component{
             stocks: [],
             stockStream: {},
             tickerItems: [],
-            paginate: {}
+            paginate: {},
+            pageNo: 1,
+            back: [],
+            forward: []
         }
     }
 
@@ -39,16 +42,21 @@ class Stocks extends React.Component{
     }
 
     componentDidMount(){
-      
+        scrollToTop()
        this.loadInitStocks()
     }
 
 
-    paginate(id) {
-        var ID = {_id : id}
-        this.back = this.state.stocks[0]._id
-        this.state.stockStream = this.getStocks(ID)
+    paginate(direction) {
+        
+       
+        
+        
+        if(direction == 'forward'){
+            this.state.forward.push(this.state.stocks[this.state.stocks.length -1]._id)
+            this.state.stockStream = this.getStocks({_id: this.state.forward[this.state.forward.length -1]})
         this.state.stockStream.on('data', (res)=> {
+            this.state.stocks = {}
             console.log(res)
             this.setState({stocks: res})
             
@@ -59,6 +67,30 @@ class Stocks extends React.Component{
            this.forceUpdate()
 
         })
+        }
+        else if(direction =='back'){
+            
+            if(this.state.forward.length <= 2){
+                this.loadInitStocks()
+            }
+            else {
+                this.state.forward.pop()
+                this.state.stockStream = this.getStocks({_id: this.state.forward[this.state.forward.length -1]})
+                this.state.stockStream.on('data', (res)=> {
+                console.log(res)
+                this.setState({stocks: res})
+            
+        })
+        
+                this.state.stockStream.on('done', (err, res) => {
+                    
+                    this.forceUpdate()
+
+        })
+            }
+
+
+        }
        
 
     }
@@ -91,20 +123,23 @@ class Stocks extends React.Component{
         return(<div>
             
             <div className='portfolioStocks' key='stocks'>
+                
             <div className = 'tickerSearch' key = 'search'>
+            <b style={{'color': 'gold'}}><label>Ticker:</label></b>
+            <br></br>
                <input type='text' value={this.state.ticker}  onChange = {(event) => this.onChange(event)} />
              
                </div>
                 {(this.state === undefined || this.state.tickerItems === [] || this.state.stocks.length < 1 ) ? (<div></div>) : (<div>
-                    <div>
+                    <div class='search-results'>
                     
                     {this.state.stocks.map((v, i) => {
                         return (<TickerItem key={v.ticker} data={v} />)
                     })}
                     </div>
-                    <div className='pagenate'>
-                    <div className='back' onClick = {() => this.paginate(this.back)}> Back </div>
-                    <button className='next' onClick={() => this.paginate(this.state.stocks[this.state.stocks.length -1]._id)} > {}</button>
+                    <div className='paginate'>
+                    <div className='back' onClick = {() => this.paginate('back')}> <b>Back</b> </div>
+                    <div className='next' onClick={() => this.paginate('forward')} > <b>Next</b></div>
                 </div>
                     
                     

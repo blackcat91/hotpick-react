@@ -1,8 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { searchStocks } from '../store/mongoCalls';
-import './components.css'
-
+import $ from 'jquery'
 
 class TickerSearch extends React.Component{
     constructor(props){
@@ -15,14 +14,25 @@ class TickerSearch extends React.Component{
     }
 
     componentDidMount(){
-
+        this.resetTicker()
     }
 
 
     componentDidUpdate() {
-
+        if($('.searchResults').html() === '0000000000000000'){
+            this.resetTicker()
+        }
+        
 
     }
+
+    resetTicker(){
+        this.setState({opacity: 0})
+        this.setState({ticker: ''})
+        this.setState({results : []})
+    }
+
+
     async onChange(event) {
         if(event.target.value.length > 0) {
         
@@ -30,8 +40,8 @@ class TickerSearch extends React.Component{
         this.forceUpdate()
         let result = searchStocks(this.state.ticker)
         result.on('data', (res) => {
-            console.log(res)
-            this.state.opacity = 0.9
+            
+            this.state.opacity = 1
             this.setState({results : res})
         })
         result.on('done', (err, res) => {
@@ -40,10 +50,13 @@ class TickerSearch extends React.Component{
         })
         }
         else {
-            this.setState({opacity: 0})
-            this.setState({ticker: ''})
-            this.setState({results : []})
+            this.resetTicker()
         }
+    }
+
+    resultClick(ticker){
+        this.resetTicker()
+        this.props.history.push('/stock/' + ticker)
     }
 
     render() {
@@ -51,14 +64,15 @@ class TickerSearch extends React.Component{
         return (<div>
 
 <div className = 'tickerSearch'>
-               <input type='text' value={this.state.ticker}  onChange = {(event) => this.onChange(event)} />
+               <input placeholder='Enter a ticker' name='search' type='text' value={this.state.ticker}  onChange = {(event) => this.onChange(event)} />
                <div className='searchResults' style={{opacity: this.state.opacity}}>
                    {
                        
                    (this.state.results.length > 0) ? 
                    this.state.results.map((v, i) => {
-                      console.log(v.ticker)
-                       return (<div key={v._id}>
+                    
+                       return (
+                       <div className='result' key={v._id} onClick={() => this.resultClick(v.ticker)}>
                            <Link to ={'/stock/' + v.ticker}>
                            {v.ticker}
                            <br></br>
@@ -73,4 +87,4 @@ class TickerSearch extends React.Component{
     }
 }
 
-export default TickerSearch
+export default withRouter(TickerSearch)

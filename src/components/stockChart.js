@@ -106,8 +106,8 @@ class StockChart extends React.Component {
             }
           };
           const containerProps = {
-            width: "80%",
-            height: "450px",
+            width: "100%",
+            height: "70vh",
             margin: "auto"
           };
         
