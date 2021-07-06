@@ -1,6 +1,6 @@
 # Getting Started with HotPick App
 
-This project was created as a demonstration. 
+## This project was created as a demonstration. 
 
 # Please do not use the data generated as financial advice!
 
