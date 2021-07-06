@@ -13,11 +13,6 @@
     }
 }
 
-@mixin addPointer(){
-    &:hover{
-        cursor:pointer;
-    }
-}
 
 
 @mixin menuClick($color, $bgcolor){
@@ -43,9 +38,7 @@
     margin-right: auto;
     padding: 2%;
     width: 3vw;
-    &:hover{
-        cursor: pointer;
-    }
+    @include menuClick(null,null );
     @media(max-width: 800px){
         width:15vw;
     }
@@ -184,7 +177,7 @@ $deepBlue: rgb(1, 1, 47);
 
 .menu {
     display:none;
-    @include addPointer();
+    @include menuClick(null,null );
 
     @media(max-width:750px){
         @include flex(row);
