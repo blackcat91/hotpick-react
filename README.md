@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# Getting Started with HotPick App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created as a demonstration. 
+
+# Please do not use the data generated as financial advice!
+
+Data from IEX is test data. You can use it using your own token if you like.
 
 ## Available Scripts
 
