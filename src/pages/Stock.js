@@ -5,7 +5,6 @@ import { getNewsStream, convertUInt8, getPrice} from '../store/outside'
 import { getStock } from '../store/mongoCalls'
 import CanvasJSReact from '../canvasjs-stock-1.3/canvasjs.stock.react';
 import '../style/pages.css'
-import { news } from '@alpacahq/alpaca-trade-api/lib/resources/polygon'
 import AddStock from '../components/addStock'
 import {store,  scrollToTop } from '../store'
 
@@ -31,7 +30,6 @@ class Stock extends React.Component{
 
     async componentDidMount(){
         scrollToTop()
-        var stream = this.state.stream;
         let news = this.state.news;
         let stockStream = this.state.stockStream
         stockStream.on('data', async (res) => {
@@ -61,12 +59,7 @@ class Stock extends React.Component{
         news.on('data', (res) => {
             
             this.state.recentNews = res
-            // var string = JSON.stringify(dataString)
-            // if(eval(JSON.parse(string))[0]){
-            //     this.state.recentNews = eval(JSON.parse(string))[0]
-            //     console.log(this.state.recentNews)
-            // }
-            // this.forceUpdate()
+            
         })
         news.on('err', (err) => {
             console.log(err.message)
@@ -104,7 +97,7 @@ class Stock extends React.Component{
         <div className='tLeft'>
         <div>
         <span style={{'fontFamily': 'Impact'}}>{data.ticker}</span>
-        <span  style={{'fontFamily': 'Couurier', 'fontWeight': 'bold'}}>${data.price}</span>
+        <span  style={{'fontFamily': 'Courier', 'fontWeight': 'bold'}}>${data.price}</span>
         </div>
         <br></br>
         <span style={{'fontWeight': 'bold'}}>{data.company}</span>

@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import CanvasJSReact from '../canvasjs-stock-1.3/canvasjs.stock.react';
-import { getBars, alpacaEndpoint } from '../store/outside';
+import { getBars } from '../store/outside';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;

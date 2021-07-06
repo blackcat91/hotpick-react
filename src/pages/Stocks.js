@@ -6,7 +6,10 @@ import { scrollToTop } from '../store'
 import {getStocks,searchStocks} from '../store/mongoCalls'
 import '../style/pages.css'
 
+/*
+List all of the stocks
 
+*/
 
 class Stocks extends React.Component{
 
@@ -25,6 +28,10 @@ class Stocks extends React.Component{
     }
 
     loadInitStocks() {
+        /*
+        Load first page of stocks 
+        and updates the state once the stream is done.
+        */
         this.state.stockStream = this.getStocks()
         this.state.stockStream.on('data', async (res)=> {
             this.state.stocks = res
@@ -51,7 +58,9 @@ class Stocks extends React.Component{
         
        
         
-        
+        /*
+        We create a stack of IDs to keep track of how far we have paginated
+        */
         if(direction == 'forward'){
             this.state.forward.push(this.state.stocks[this.state.stocks.length -1]._id)
             this.state.stockStream = this.getStocks({_id: this.state.forward[this.state.forward.length -1]})
@@ -97,6 +106,8 @@ class Stocks extends React.Component{
 
 
     async onChange(event) {
+        //Makes a  call to  search Stocks everytime a letter is typed
+
         if(event.target.value.length > 0) {
         
         this.state.ticker= event.target.value

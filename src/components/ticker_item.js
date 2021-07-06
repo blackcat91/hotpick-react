@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {getPrice, getTicker5SecondStream} from '../store/outside'
+import {getPrice} from '../store/outside'
 import $ from 'jquery';
 
 

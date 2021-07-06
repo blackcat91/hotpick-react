@@ -1,6 +1,4 @@
-import logo from '../logo.svg';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import NavBar from  '../components/nav.js'
+
 import MainJumbo from '../components/main_jumbo'
 import Footer from '../components/footer'
 import TickerItem from '../components/ticker_item'
@@ -91,4 +89,4 @@ class HomePage extends React.Component{
     }
     
 
-  export default HomePage;
+  export default withRouter(HomePage);
