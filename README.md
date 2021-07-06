@@ -6,9 +6,8 @@ This project was created as a demonstration.
 
 Data from IEX is test data. 
 
-You can use it using your own token if you like by\
-generating scores in your own data base using the [Momentum Ranker](https://github.com/blackcat91/Momentum-Ranker)
-and populating and connecting it to your mongoDB or any database of your choice.
+You can use it using your own token if you like by generating scores in your own data base using the\ 
+[Momentum Ranker](https://github.com/blackcat91/Momentum-Ranker) and populating and connecting it to your mongoDB or any database of your choice.
 
 
 ## Available Scripts
