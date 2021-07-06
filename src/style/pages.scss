@@ -222,7 +222,7 @@
             margin-bottom: 1vh;
         }
         button{
-            @include addPointer();
+            @include menuClick(null, null);
             background: $primaryColor;
             color: $deepBlue;
         }

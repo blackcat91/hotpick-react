@@ -19,18 +19,17 @@
     }
 }
 
-@mixin hoverOver($color){
-    &:hover{
-        cursor:pointer;
-        color: $color;
-    }
-}
 
 @mixin menuClick($color, $bgcolor){
     &:hover{
         cursor:pointer;
-        color: $color;
-        background: $bgcolor;
+        @if($color != null){
+            color: $color;
+        }
+        @if($bgcolor != null){
+            background: $bgcolor;
+        }
+        
     }
 }
 
@@ -107,10 +106,10 @@ $deepBlue: rgb(1, 1, 47);
     text-decoration: none;
     list-style-type: none;
     
-    @include hoverOver($secondaryColor)
+    @include menuClick($secondaryColor, null)
     }
     div{
-        @include hoverOver($secondaryColor)
+        @include menuClick($secondaryColor, null)
     }
     
     @media(max-width:750px){
